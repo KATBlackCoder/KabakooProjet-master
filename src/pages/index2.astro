@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const responseQuotes = await fetch("https://api.quotable.io/quotes/random");
+const data = await responseQuotes.json();
+
+---
+
+<Layout title="Expression gratuit">
+	<div>
+		<p class="font-mono text-yellow-100 text-4xl pb-5">La Citation d'aujourdhui est:</p>
+	</div>
+    <div class="bg-orange-200 m-4 p-6 text-2xl font-mono rounded-full">
+        <div class="text-cyan-900 rounded-xl flex w-auto h-auto">
+            <p class="text-center flex items-center quote-content">
+                {data[0].content}
+            </p>
+        </div>
+        <div class="text-green-700 text-xl flex flex-row justify-center justify-items-center">
+            <p class="text-center mt-4 quote-author">
+                {data[0].author}
+            </p>
+        </div>
+    </div>
+    <button class="next bg-red-700 p-3 font-mono rounded-full hover:bg-green-500">
+        Next
+    </button>
+</Layout>
+
+<script src="./api.js"> 
