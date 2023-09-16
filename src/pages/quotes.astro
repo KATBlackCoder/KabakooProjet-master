@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+
+const responseQuotes = await fetch("https://api.quotable.io/quotes/random");
+const data = await responseQuotes.json();
+
+let content = data[0].content
+let author = data[0].author
+let slug = data[0].authorSlug
+let responseImage = await fetch("https://images.quotable.dev/profile/200/"+slug+".jpg")
+let image = ''
+
+if (responseImage.ok) {
+    image = responseImage.url
+} else {
+    image = "./images/user.png"
+}
+
+async function getRandomQuote() {
+    try {
+        responseQuotes;
+        data
+        if (responseQuotes.ok) {
+            let content = data[0].content
+            let author = data[0].author
+            let slug = data[0].authorSlug
+        }
+    } catch (error) {
+        
+    }
+}
+
+---
+<script>
+
+</script>
+
+<Layout title="Citation gratuit">
+	<div>
+		<p class="font-mono text-yellow-100 text-4xl pb-5">La Citation d'aujourdhui est:</p>
+	</div>
+    <div class="bg-orange-200 m-4 p-6 text-2xl font-mono rounded-e-full">
+        <div class="text-cyan-900 rounded-xl flex w-auto h-auto">
+            <Image
+             src={image}
+             alt={slug}
+             width=200
+             height=150
+            />
+            <p class="text-center flex items-center ml-3 quote-content">
+                {content}
+            </p>
+        </div>
+        <div class="text-green-700 text-xl flex flex-row justify-center justify-items-center">
+            <p class="text-center mt-4 quote-author">
+                {author}
+            </p>
+        </div>
+    </div>
+    <button class="next bg-red-700 p-3 font-mono rounded-full hover:bg-green-500" onclick="getRandomQuote()">
+        Next
+    </button>
+</Layout>
