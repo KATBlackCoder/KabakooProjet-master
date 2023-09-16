@@ -9,14 +9,13 @@ const updateQuote = (data) => {
   quoteContent.innerHTML = data.content;
   quoteAuthor.innerHTML = data.author;
   const dataImage = fetch ("https://images.quotable.dev/profile/200/"+data.authorSlug+".jpg");
-  if (dataImage.ok) {
+  if (dataImage) {
     quoteImage.src = "https://images.quotable.dev/profile/200/"+data.authorSlug+".jpg";
     quoteImage.alt = data.authorSlug;
   }else{
     quoteImage.src = UserImage.src;
   }
 };
-
 const nextQuote = () => {
   fetch("https://api.quotable.io/random")
     .then((response) => response.json())
@@ -24,4 +23,5 @@ const nextQuote = () => {
       updateQuote(data);
     });
 };
+
 newQuoteButton.addEventListener("click", nextQuote);
